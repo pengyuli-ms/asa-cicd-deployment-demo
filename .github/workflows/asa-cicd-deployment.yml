@@ -52,4 +52,4 @@ jobs:
           # Specify either path to the Azure Resource Manager parameters file or pass them as 'key1=value1;key2=value2;...'.
           parameters: deploy/kv-test.JobTemplate.parameters.json
           # Specify either path to the Azure Resource Manager override parameters file or pass them as 'key1=value1;key2=value2;...'.
-          overrideParameters: Inputs_ehinput_DataSource_SharedAccessPolicyKey={{ secrets.PENGYUEH_KEY }};Outputs_ehoutput_DataSource_SharedAccessPolicyKey={{ secrets.PENGYUEH_KEY }}
+          overrideParameters: Inputs_ehinput_DataSource_SharedAccessPolicyKey=${{ secrets.PENGYUEH_KEY }};Outputs_ehoutput_DataSource_SharedAccessPolicyKey=${{ secrets.PENGYUEH_KEY }}
