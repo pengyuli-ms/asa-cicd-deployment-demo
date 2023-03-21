@@ -1,0 +1,18 @@
+{
+    "name": "kv-test",
+    "startFile": "kv-test.asaql",
+    "configurations": [
+        {
+            "filePath": "JobConfig.json",
+            "subType": "JobConfig"
+        },
+        {
+            "filePath": "Inputs/ehinput.json",
+            "subType": "Input"
+        },
+        {
+            "filePath": "Outputs/ehoutput.json",
+            "subType": "Output"
+        }
+    ]
+}

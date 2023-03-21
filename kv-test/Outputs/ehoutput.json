@@ -1,0 +1,20 @@
+{
+    "Name": "ehoutput",
+    "DataSourceType": "Event Hub",
+    "EventHubProperties": {
+        "ServiceBusNamespace": "pengyu-eh",
+        "EventHubName": "kv-test-eh-output",
+        "SharedAccessPolicyName": "RootManageSharedAccessKey",
+        "SharedAccessPolicyKey": "********",
+        "PartitionKey": "",
+        "PropertyColumns": [],
+        "AuthenticationMode": "ConnectionString"
+    },
+    "DataSourceCredentialDomain": "4e1a450e-3f0e-4799-b069-311472a5c483.StreamAnalystics",
+    "Serialization": {
+        "Type": "Json",
+        "Encoding": "UTF8",
+        "Format": "LineSeparated"
+    },
+    "ScriptType": "Output"
+}
