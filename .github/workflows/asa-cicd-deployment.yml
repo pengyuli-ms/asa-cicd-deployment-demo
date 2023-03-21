@@ -1,0 +1,55 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.x'
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm install --global azure-streamanalytics-cicd
+      
+      - name: Build the project to generate ARM template file
+        shell: pwsh
+        run: azure-streamanalytics-cicd build --v2 --project kv-test/asaproj.json --output deploy/
+          
+      - name: Azure Resource Manager (ARM) Template Deployment
+        uses: whiteducksoftware/azure-arm-action@v3.3
+        with:
+          # Paste output of `az ad sp create-for-rbac -o json` as value of secret variable: AZURE_CREDENTIALS
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          # Provide the name of a resource group.
+          resourceGroupName: pengyuli-rg
+          # Specify the path to the Azure Resource Manager template.
+          templateLocation: deploy/kv-test.JobTemplate.json
+          # Specifies the name of the resource group deployment to create.
+          deploymentName: kv-test-job-deployment
+          # Specify either path to the Azure Resource Manager parameters file or pass them as 'key1=value1;key2=value2;...'.
+          parameters: deploy/kv-test.JobTemplate.parameters.json
+          # Specify either path to the Azure Resource Manager override parameters file or pass them as 'key1=value1;key2=value2;...'.
+          overrideParameters: Inputs_ehinput_DataSource_SharedAccessPolicyKey={{ secrets.PENGYUEH_KEY }};Outputs_ehoutput_DataSource_SharedAccessPolicyKey={{ secrets.PENGYUEH_KEY }}
