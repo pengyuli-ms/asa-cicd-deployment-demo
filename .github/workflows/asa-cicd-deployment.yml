@@ -36,7 +36,7 @@ jobs:
       
       - name: Build the project to generate ARM template file
         shell: pwsh
-        run: azure-streamanalytics-cicd build --v2 --project kv-test/asaproj.json --output deploy/
+        run: azure-streamanalytics-cicd build --v2 --project kv-test/asaproj.json --outputPath deploy/
           
       - name: Azure Resource Manager (ARM) Template Deployment
         uses: whiteducksoftware/azure-arm-action@v3.3
