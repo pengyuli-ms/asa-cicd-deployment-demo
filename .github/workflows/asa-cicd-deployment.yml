@@ -38,12 +38,10 @@ jobs:
         shell: pwsh
         run: azure-streamanalytics-cicd build --v2 --project kv-test/asaproj.json --outputPath deploy/
       
-      - name: Login to the Azure account using credential
       - uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
         
-      - name: Deploy Azure Stream Analytics job to Azure
       - uses: azure/arm-deploy@v1
         with:
           resourceGroupName: pengyuli-rg
