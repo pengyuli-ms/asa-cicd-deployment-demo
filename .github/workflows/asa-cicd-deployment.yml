@@ -44,7 +44,7 @@ jobs:
         
       - uses: azure/arm-deploy@v1
         with:
-          resourceGroupName: pengyu-rg
+          resourceGroupName: pengyuli-rg
           template: deploy/kv-test.JobTemplate.json
           parameters: deploy/kv-test.JobTemplate.parameters.json Inputs_ehinput_DataSource_SharedAccessPolicyKey=${{ secrets.PENGYUEH_KEY }} Outputs_ehoutput_DataSource_SharedAccessPolicyKey=${{ secrets.PENGYUEH_KEY }}
           deploymentName: asa-job-deployment
