@@ -46,13 +46,13 @@ jobs:
   
   deploy-project:
     runs-on: windows-latest
+    needs: [build-project]
     
     steps:
       - name: Download ARM template file from artifacts
         uses: actions/download-artifact@v3
         with:
           name: deploy
-          path: deploy
 
       - uses: azure/login@v1
         with:
