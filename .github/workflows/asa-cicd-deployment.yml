@@ -47,4 +47,4 @@ jobs:
           resourceGroupName: pengyuli-rg
           template: deploy/kv-test.JobTemplate.json
           parameters: deploy/kv-test.JobTemplate.parameters.json Inputs_ehinput_DataSource_SharedAccessPolicyKey=${{ secrets.PENGYUEH_KEY }} Outputs_ehoutput_DataSource_SharedAccessPolicyKey=${{ secrets.PENGYUEH_KEY }}
-          additionalArguments: "--what-if --rollback-on-error --what-if-exclude-change-types Create Ignore"
+          deploymentName: asa-job-deployment
