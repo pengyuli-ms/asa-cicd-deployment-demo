@@ -67,8 +67,8 @@ jobs:
         
       - uses: azure/arm-deploy@v1
         with:
-          resourceGroupName: $TARGET_RESOURCE_GROUP
+          resourceGroupName: ${{ env.TARGET_RESOURCE_GROUP }}
           template: ${{ env.OUTPUT_PATH }}/${{ env.PROJECT_NAME }}.JobTemplate.json
-          parameters: ${{ env.OUTPUT_PATH }}/${{ env.PROJECT_NAME }}.JobTemplate.parameters.json $OVERRIDE_PARAMETERS
+          parameters: ${{ env.OUTPUT_PATH }}/${{ env.PROJECT_NAME }}.JobTemplate.parameters.json ${{ env.OVERRIDE_PARAMETERS }}
           deploymentName: asa-job-deployment
   
