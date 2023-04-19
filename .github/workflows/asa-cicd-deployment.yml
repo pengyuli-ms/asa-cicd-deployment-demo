@@ -6,7 +6,7 @@ env:
   PROJECT_NAME: kv-test
   OUTPUT_PATH: deploy
   TARGET_RESOURCE_GROUP: pengyuli-rg
-  OVERRIDE_PARAMETER: Inputs_ehinput_DataSource_SharedAccessPolicyKey=${{ secrets.PENGYUEH_KEY }} Outputs_ehoutput_DataSource_SharedAccessPolicyKey=${{ secrets.PENGYUEH_KEY }}
+  OVERRIDE_PARAMETERS: Inputs_ehinput_DataSource_SharedAccessPolicyKey=${{ secrets.PENGYUEH_KEY }} Outputs_ehoutput_DataSource_SharedAccessPolicyKey=${{ secrets.PENGYUEH_KEY }}
 
 # Controls when the workflow will run
 on:
@@ -42,13 +42,13 @@ jobs:
       
       - name: Build the project to generate ARM template file
         shell: pwsh
-        run: azure-streamanalytics-cicd build --v2 --project $PROJECT_NAME/asaproj.json --outputPath $OUTPUT_PATH
+        run: azure-streamanalytics-cicd build --v2 --project ${{ env.PROJECT_NAME }}/asaproj.json --outputPath ${{ env.OUTPUT_PATH }}
       
       - name: Upload ARM template file as artifacts
         uses: actions/upload-artifact@v3
         with:
           name: deploy
-          path: $OUTPUT_PATH
+          path: ${{ env.OUTPUT_PATH }}
   
   deploy-project:
     runs-on: windows-latest
@@ -59,7 +59,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: deploy
-          path: $OUTPUT_PATH
+          path: ${{ env.OUTPUT_PATH }}
 
       - uses: azure/login@v1
         with:
@@ -68,7 +68,7 @@ jobs:
       - uses: azure/arm-deploy@v1
         with:
           resourceGroupName: $TARGET_RESOURCE_GROUP
-          template: $OUTPUT_PATH/$PROJECT_NAME.JobTemplate.json
-          parameters: $OUTPUT_PATH/$PROJECT_NAME.JobTemplate.parameters.json $OVERRIDE_PARAMETER
+          template: ${{ env.OUTPUT_PATH }}/${{ env.PROJECT_NAME }}.JobTemplate.json
+          parameters: ${{ env.OUTPUT_PATH }}/${{ env.PROJECT_NAME }}.JobTemplate.parameters.json $OVERRIDE_PARAMETERS
           deploymentName: asa-job-deployment
   
