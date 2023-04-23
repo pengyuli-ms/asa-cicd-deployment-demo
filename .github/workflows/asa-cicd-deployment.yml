@@ -8,6 +8,23 @@ env:
   TARGET_RESOURCE_GROUP: pengyuli-rg
   OVERRIDE_PARAMETERS: Inputs_ehinput_DataSource_SharedAccessPolicyKey=${{ secrets.PENGYUEH_KEY }} Outputs_ehoutput_DataSource_SharedAccessPolicyKey=${{ secrets.PENGYUEH_KEY }}
 
+# Credentials for Azure resource is NULL inside the parameter files, it has to be overrided in `OVERRIDE_PARAMETERS` variables above.
+# To correctly parse the credential, the parameter has to be set as a key-value pair, the key's format is shown as below:
+#               Inputs_ehinput_DataSource_SharedAccessPolicyKey
+#               \____/ \_____/ \________/ \__________________/
+#                  |      |                        |
+#          input/output  name                credential name
+# Here is a mapping from the Azure resource type to its credential name:
+# -------------------------------------------------------------------------------------
+# |                     Resource types                       |    Credential name     |
+# | Azure Event Hub, Azure IoT Hub, Azure Service Bus        | SharedAccessPolicyKey  |
+# | Azure Blob Storage, Azure Cosmos DB, Azure Table Storage | AccountKey             |
+# | Azure Function                                           | ApiKey                 |
+# | Azure SQL Database, Azure Synapse Analytics              | Password               |
+# -------------------------------------------------------------------------------------
+# For example, for an output of blob storage named 'bloboutput', the key should be: Outputs_bloboutput_DataSource_AccountKey
+
+
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
