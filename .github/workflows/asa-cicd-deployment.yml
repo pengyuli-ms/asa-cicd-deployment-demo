@@ -61,7 +61,7 @@ jobs:
       
       - name: Build the project to generate ARM template file
         shell: pwsh
-        run: azure-streamanalytics-cicd build --v2 --project ${{ env.PROJECT_NAME }}/asaproj.json --outputPath ${{ env.OUTPUT_PATH }} --entry GithubAction
+        run: azure-streamanalytics-cicd build --v2 --project ${{ env.PROJECT_NAME }}/asaproj.json --outputPath ${{ env.OUTPUT_PATH }}
       
       - name: Upload ARM template file as artifacts
         uses: actions/upload-artifact@v3
