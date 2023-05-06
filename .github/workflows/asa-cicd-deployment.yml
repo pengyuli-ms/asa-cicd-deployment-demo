@@ -7,7 +7,7 @@ env:
   OUTPUT_PATH: deploy
   TARGET_RESOURCE_GROUP: pengyuli-rg
   # All available locations can be found at: https://azure.microsoft.com/explore/global-infrastructure/products-by-region/?products=stream-analytics&regions=all
-  LOCATION: Central US   
+  LOCATION: "Central US"
   OVERRIDE_PARAMETERS: Inputs_ehinput_DataSource_SharedAccessPolicyKey=${{ secrets.PENGYUEH_KEY }} Outputs_ehoutput_DataSource_SharedAccessPolicyKey=${{ secrets.PENGYUEH_KEY }}
 
 # Credentials for Azure resource is NULL inside the parameter files, it has to be overrided in `OVERRIDE_PARAMETERS` variables above.
