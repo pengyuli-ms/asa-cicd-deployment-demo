@@ -88,6 +88,6 @@ jobs:
         with:
           resourceGroupName: ${{ env.TARGET_RESOURCE_GROUP }}
           template: ${{ env.OUTPUT_PATH }}/${{ env.PROJECT_NAME }}.JobTemplate.json
-          parameters: ${{ env.OUTPUT_PATH }}/${{ env.PROJECT_NAME }}.JobTemplate.parameters.json LOCATION=${{ env.LOCATION }} ${{ env.OVERRIDE_PARAMETERS }}
+          parameters: ${{ env.OUTPUT_PATH }}/${{ env.PROJECT_NAME }}.JobTemplate.parameters.json Location=${{ env.LOCATION }} ${{ env.OVERRIDE_PARAMETERS }}
           deploymentName: asa-job-deployment
   
